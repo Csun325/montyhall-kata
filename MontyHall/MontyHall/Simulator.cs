@@ -43,14 +43,19 @@ namespace MontyHall
         {
             stayPercent = Math.Round(_stayCount / _runCount * 100, MidpointRounding.AwayFromZero);
             switchPercent = Math.Round(_switchCount / _runCount * 100, MidpointRounding.AwayFromZero);
-            
-            printResults = (switchPercent > stayPercent
-                ? "The Switching Strategy Performs better"
-                : "The Staying Strategy Performs better");
-            
+
+            var percent = switchPercent / stayPercent;
+            printResults = percent switch
+            {
+                > 0 => "\nThe Switching Strategy Performs better",
+                0 => "\nThe Staying and Switching Strategy performs the same",
+                < 0 => "\nThe Staying Strategy Performs better",
+                _ => printResults
+            };
+
             Console.WriteLine(printResults);
-            Console.WriteLine($"Switching success rate: {switchPercent}");
-            Console.WriteLine($"Staying success rate: {stayPercent}");
+            Console.WriteLine($"Switching success rate: {switchPercent}%");
+            Console.WriteLine($"Staying success rate: {stayPercent}%");
         }
         
         
