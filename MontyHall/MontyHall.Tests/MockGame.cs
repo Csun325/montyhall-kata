@@ -25,42 +25,6 @@ namespace MontyHall.Tests
 
         public void ClearCurrentGame()
         {
-            
-        }
-
-        public void CreateDoors()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void RandomisePrizePos()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void GetFirstDoor()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void GetSecondDoor()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Door> GetDoors()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ShowDoor()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int GetFirstDoorIndex()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

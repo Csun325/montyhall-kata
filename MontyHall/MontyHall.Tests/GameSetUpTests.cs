@@ -13,53 +13,53 @@ namespace MontyHall.Tests
         {
             newGame = Factory.CreateGameStay(new MockRandom(), 3);
         }
-        [Fact]
-        public void CreateDoors_WhenGameStarts_ThenThreeDoorsAreCreated()
-        {
-            //arrange
-            //act
-            newGame.CreateDoors();
-            var result = newGame.GetDoors().Count;
-            //assert
-            Assert.Equal(3, result);
-        }
-        
-        [Fact]
-        public void CreateDoors_WhenGameStarts_ThenHaveAllDoorsClosed()
-        {
-            //arrange
-            //act
-            newGame.CreateDoors();
-            //assert
-            foreach (var door in newGame.GetDoors())
-            {
-                Assert.False(door.IsOpen);
-            }
-        }
-        
-        [Fact]
-        public void RandomisePrizePos_WhenRandomised_ThenOnlyOneDoorHasPrize()
-        {
-            //arrange
-            newGame.CreateDoors();
-            //act
-            newGame.RandomisePrizePos();
-            //assert
-            Assert.Single(newGame.GetDoors(), door => door.HasPrize);
-        }
-        
-        [Fact]
-        public void GetFirstDoorToPick_WhenCalled_ThenOnlyOneDoorIsPicked()
-        {
-            //arrange
-            newGame.CreateDoors();
-            newGame.RandomisePrizePos();
-            //act
-            newGame.GetFirstDoor();
-            //assert
-            Assert.Single(newGame.GetDoors(), door => door.IsPicked);
-        }
-        
+        // [Fact]
+        // public void CreateDoors_WhenGameStarts_ThenThreeDoorsAreCreated()
+        // {
+        //     //arrange
+        //     //act
+        //     newGame.CreateDoors();
+        //     var result = newGame.GetDoors().Count;
+        //     //assert
+        //     Assert.Equal(3, result);
+        // }
+        //
+        // [Fact]
+        // public void CreateDoors_WhenGameStarts_ThenHaveAllDoorsClosed()
+        // {
+        //     //arrange
+        //     //act
+        //     newGame.CreateDoors();
+        //     //assert
+        //     foreach (var door in newGame.GetDoors())
+        //     {
+        //         Assert.False(door.IsOpen);
+        //     }
+        // }
+        //
+        // [Fact]
+        // public void RandomisePrizePos_WhenRandomised_ThenOnlyOneDoorHasPrize()
+        // {
+        //     //arrange
+        //     newGame.CreateDoors();
+        //     //act
+        //     newGame.RandomisePrizePos();
+        //     //assert
+        //     Assert.Single(newGame.GetDoors(), door => door.HasPrize);
+        // }
+        //
+        // [Fact]
+        // public void GetFirstDoorToPick_WhenCalled_ThenOnlyOneDoorIsPicked()
+        // {
+        //     //arrange
+        //     newGame.CreateDoors();
+        //     newGame.RandomisePrizePos();
+        //     //act
+        //     newGame.GetFirstDoor();
+        //     //assert
+        //     Assert.Single(newGame.GetDoors(), door => door.IsPicked);
+        // }
+        //
         // [Fact]
         // public void ShowDoor_WhenCalled_ThenDoorShownIsNotPickedAndHasNoPrize()
         // {
@@ -77,38 +77,38 @@ namespace MontyHall.Tests
         //     Assert.False(door.IsPicked);
         //     Assert.False(door.HasPrize);
         // }
-        
-        [Fact]
-        public void GetSecondDoor_WhenCalledWithStay_ThenNoExtraDoorsPicked()
-        {
-            //arrange
-            var game = Factory.CreateGameStay(Factory.CreateRandom(), 3);
-            game.CreateDoors();
-            game.RandomisePrizePos();
-            game.GetFirstDoor();
-            game.ShowDoor();
-            //act
-            game.GetSecondDoor();
-            //assert
-            Assert.Single(game.GetDoors(), d => d.IsPicked);
-        
-        }
-        
-        [Fact]
-        public void GetSecondDoor_WhenCalledWithSwitch_ThenFirstPickedDoorNotOpen()
-        {
-            //arrange
-            // var game = Factory.CreateGameSwitch(new MockRandom(), 3);
-            var game = Factory.CreateGameSwitch(Factory.CreateRandom(), 3);
-            game.CreateDoors();
-            game.RandomisePrizePos();
-            game.GetFirstDoor();
-            game.ShowDoor();
-            //act
-            game.GetSecondDoor();
-            //assert
-            Assert.False(game.GetDoors()[game.GetFirstDoorIndex()].IsOpen);
-        }
+        //
+        // [Fact]
+        // public void GetSecondDoor_WhenCalledWithStay_ThenNoExtraDoorsPicked()
+        // {
+        //     //arrange
+        //     var game = Factory.CreateGameStay(Factory.CreateRandom(), 3);
+        //     game.CreateDoors();
+        //     game.RandomisePrizePos();
+        //     game.GetFirstDoor();
+        //     game.ShowDoor();
+        //     //act
+        //     game.GetSecondDoor();
+        //     //assert
+        //     Assert.Single(game.GetDoors(), d => d.IsPicked);
+        //
+        // }
+        //
+        // [Fact]
+        // public void GetSecondDoor_WhenCalledWithSwitch_ThenFirstPickedDoorNotOpen()
+        // {
+        //     //arrange
+        //     // var game = Factory.CreateGameSwitch(new MockRandom(), 3);
+        //     var game = Factory.CreateGameSwitch(Factory.CreateRandom(), 3);
+        //     game.CreateDoors();
+        //     game.RandomisePrizePos();
+        //     game.GetFirstDoor();
+        //     game.ShowDoor();
+        //     //act
+        //     game.GetSecondDoor();
+        //     //assert
+        //     Assert.False(game.GetDoors()[game.GetFirstDoorIndex()].IsOpen);
+        // }
         
     }
 }
