@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using MontyHall.Interfaces;
 
 namespace MontyHall
@@ -42,7 +43,7 @@ namespace MontyHall
             // clear all status from this game
         }
 
-        private void CreateDoors()
+        public void CreateDoors()
         {
             for (var i = 0; i < _totalDoors; i++)
             {
@@ -50,35 +51,60 @@ namespace MontyHall
             }
         }
 
-        private void RandomisePrizePos()
+        public void RandomisePrizePos()
         {
             var index = _rnd.SelectRandom(_totalDoors);
             _doors[index].HasPrize = true;
         }
 
-        private void GetFirstDoor()
+        public void GetFirstDoor()
         {
             var doorIndex = _participant.ChooseFirstDoor(_totalDoors);
             _firstDoorIndex = doorIndex;
             _doors[doorIndex].IsPicked = true;
         }
 
-        private void ShowDoor()
+        
+        public void ShowDoor()
         {
-            var doorIndex = _doors.FindIndex(d => d.IsPicked == false && d.HasPrize == false);
+            List<int> selectedIndex = new List<int>();
+            for (var i = 0; i < _totalDoors; i++)
+            {
+                var door = _doors[i];
+                if (door.IsPicked == false && door.HasPrize == false)
+                {
+                    selectedIndex.Add(i);
+                }
+            }
             
+            var randomIndex = _rnd.SelectRandom(selectedIndex.Count);
+            var doorIndex = selectedIndex[randomIndex];
             _doors[doorIndex].IsOpen = true;
-            
+
         }
 
-        private void GetSecondDoor()
+        
+        public void GetSecondDoor()
         {
             var doorIndex = _participant.SecondDoorStrategy(_firstDoorIndex, _totalDoors);
             if (doorIndex == -1) // negative indicated switch
             {
-                var door = _doors.First(d => d.IsPicked == false && d.IsOpen == false);
-                door.IsPicked = true;
-                door.IsOpen = true;
+                List<int> selectedIndex = new List<int>();
+                for (var i = 0; i < _totalDoors; i++)
+                {
+                    var door = _doors[i];
+                    if (door.IsPicked == false && door.IsOpen == false)
+                    {
+                        selectedIndex.Add(i);
+                    }
+                }
+                
+                var randomIndex = _rnd.SelectRandom(selectedIndex.Count);
+                var doorGet = selectedIndex[randomIndex];
+                
+                _doors[doorGet].IsPicked = true;
+                _doors[doorGet].IsOpen = true;
+                
             }
             else // stay
             {
@@ -127,14 +153,14 @@ namespace MontyHall
             
         }
 
-        // public List<Door> GetDoors()
-        // {
-        //     return _doors;
-        // }
+        public List<Door> GetDoors()
+        {
+            return _doors;
+        }
 
-        // public int GetFirstDoorIndex()
-        // {
-        //     return _firstDoorIndex;
-        // }
+        public int GetFirstDoorIndex()
+        {
+            return _firstDoorIndex;
+        }
     }
 }

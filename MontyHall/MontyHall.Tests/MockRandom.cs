@@ -6,7 +6,7 @@ namespace MontyHall.Tests
     {
         public int SelectRandom(int end)
         {
-            return 2;
+            return 1;
         }
     }
 }

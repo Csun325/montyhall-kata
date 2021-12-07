@@ -44,7 +44,7 @@ namespace MontyHall
             stayPercent = Math.Round(_stayCount / _runCount * 100, MidpointRounding.AwayFromZero);
             switchPercent = Math.Round(_switchCount / _runCount * 100, MidpointRounding.AwayFromZero);
 
-            var percent = switchPercent / stayPercent;
+            var percent = switchPercent - stayPercent;
             printResults = percent switch
             {
                 > 0 => "\nThe Switching Strategy Performs better",

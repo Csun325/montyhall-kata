@@ -46,7 +46,7 @@ namespace MontyHall.Tests
             const int runTimes = 1000;
             var gameStay = new MockGame();
             var gameSwitch = new MockGame();
-            var message = "The Switching Strategy Performs better";
+            var message = "\nThe Switching Strategy Performs better";
             //act
             gameStay.results = false;
             gameSwitch.results = true;
@@ -64,7 +64,7 @@ namespace MontyHall.Tests
             const int runTimes = 1000;
             var gameStay = new MockGame();
             var gameSwitch = new MockGame();
-            var message = "The Staying Strategy Performs better";
+            var message = "\nThe Staying Strategy Performs better";
             //act
             gameStay.results = true;
             gameSwitch.results = false;
