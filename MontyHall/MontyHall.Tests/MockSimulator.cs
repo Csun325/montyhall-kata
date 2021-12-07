@@ -4,13 +4,14 @@ namespace MontyHall.Tests
 {
     public class MockSimulator : ISimulator
     {
-        public int runCount = 0;
-        public void RunSimulator(int runTimes)
+        public void RunSimulator(int runTimes, IGame gameStay, IGame gameSwitch)
         {
-            for (var i = 0; i < runTimes; i++)
-            {
-                runCount++;
-            }
+            throw new System.NotImplementedException();
+        }
+
+        public void CompareResults()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

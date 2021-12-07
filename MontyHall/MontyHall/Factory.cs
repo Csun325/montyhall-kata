@@ -13,6 +13,10 @@ namespace MontyHall
      */
     public static class Factory
     {
+        public static ISimulator CreateSimulator()
+        {
+            return new Simulator();
+        }
         public static IGame CreateGameStay(IRandom rand, int totalDoors)
         {
             return new Game(CreateDoorsList(), rand, CreateParticipantStay(), totalDoors);
@@ -21,16 +25,6 @@ namespace MontyHall
         public static IGame CreateGameSwitch(IRandom rand, int totalDoors)
         {
             return new Game(CreateDoorsList(), rand, CreateParticipantSwitch(), totalDoors);
-        }
-
-        // public static ISimulator CreateSimulator(ISimulator sim)
-        // {
-        //     return sim;
-        // }
-
-        public static IResult CreateResult()
-        {
-            return new Result();
         }
 
         private static IParticipant CreateParticipantStay()

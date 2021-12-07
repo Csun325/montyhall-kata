@@ -5,19 +5,14 @@ using MontyHall.Interfaces;
 
 namespace MontyHall
 {
-    /**
-     * Things to change at end
-     * make helper methods private
-     * remove _firstDoorIndex Property and associated getter method
-     * add in print results to startGame method
-     */
+   
     public class Game : IGame
     {
         private readonly List<Door> _doors;
         private readonly IRandom _rnd;
         private readonly IParticipant _participant;
         private readonly int _totalDoors;
-        
+
         private int _firstDoorIndex;
 
         public Game(List<Door> doors, IRandom rnd, IParticipant participant, int totalDoors)
@@ -30,35 +25,45 @@ namespace MontyHall
 
         public void RunGame()
         {
+            Console.WriteLine("New Game");
             CreateDoors();
             RandomisePrizePos();
+           // PrintDoorsStatus();
             GetFirstDoor();
+            //Console.WriteLine("first door is chosen");
+            //PrintDoorsStatus();
             ShowDoor();
+            //Console.WriteLine("Game host now reveals another door!");
+            //PrintDoorsStatus();
             GetSecondDoor();
+           // Console.WriteLine("Strategy used");
+            PrintDoorsStatus();
+            
+            // clear all status from this game
         }
 
-        public void CreateDoors()
+        private void CreateDoors()
         {
             for (var i = 0; i < _totalDoors; i++)
             {
                 _doors.Add(Factory.CreateDoor());
             }
         }
-        
-        public void RandomisePrizePos()
+
+        private void RandomisePrizePos()
         {
             var index = _rnd.SelectRandom(_totalDoors);
             _doors[index].HasPrize = true;
         }
 
-        public void GetFirstDoor()
+        private void GetFirstDoor()
         {
             var doorIndex = _participant.ChooseFirstDoor(_totalDoors);
             _firstDoorIndex = doorIndex;
             _doors[doorIndex].IsPicked = true;
         }
 
-        public void ShowDoor()
+        private void ShowDoor()
         {
             var doorIndex = _doors.FindIndex(d => d.IsPicked == false && d.HasPrize == false);
             
@@ -66,7 +71,7 @@ namespace MontyHall
             
         }
 
-        public void GetSecondDoor()
+        private void GetSecondDoor()
         {
             var doorIndex = _participant.SecondDoorStrategy(_firstDoorIndex, _totalDoors);
             if (doorIndex == -1) // negative indicated switch
@@ -77,19 +82,59 @@ namespace MontyHall
             }
             else // stay
             {
-                //_doors[doorIndex].IsPicked = true;
                 _doors[doorIndex].IsOpen = true;
             }
         }
 
-        public List<Door> GetDoors()
+        private void PrintDoorsStatus()
         {
-            return _doors;
+            foreach (var door in _doors)
+            {
+                var doorIndex = _doors.IndexOf(door);
+                var message = $"Door: {doorIndex + 1}";
+                if (door.IsOpen)
+                {
+                    message += " is open and";
+                    if(door.HasPrize)
+                    {
+                        message += " has the prize!";
+                    }
+                    else
+                    {
+                        message += " has no prize";
+                    }
+                }
+                else 
+                {
+                    message += " is closed";
+                    if (door.IsPicked)
+                    {
+                        message += " and is picked initially";
+                    }
+                }
+                Console.WriteLine(message);
+            }
         }
 
-        public int GetFirstDoorIndex()
+        public bool GetResults()
         {
-            return _firstDoorIndex;
+            return _doors.Any(d => d.IsOpen && d.HasPrize);
         }
+
+        public void ClearCurrentGame()
+        {
+            _doors.Clear();
+            
+        }
+
+        // public List<Door> GetDoors()
+        // {
+        //     return _doors;
+        // }
+
+        // public int GetFirstDoorIndex()
+        // {
+        //     return _firstDoorIndex;
+        // }
     }
 }
