@@ -9,7 +9,6 @@ namespace MontyHall
     {
         private readonly IRandom _rnd;
         private readonly Strategy _strategy;
-        private bool _winResult;
 
         public Participant(IRandom rnd, Strategy strategy)
         {

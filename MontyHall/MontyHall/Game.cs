@@ -26,7 +26,7 @@ namespace MontyHall
 
         public void RunGame()
         {
-            Console.WriteLine("New Game");
+            //Console.WriteLine("New Game");
             CreateDoors();
             RandomisePrizePos();
            
@@ -37,8 +37,8 @@ namespace MontyHall
             //Console.WriteLine("Game host now reveals another door!");
             
             GetSecondDoor();
-           // Console.WriteLine("Strategy used");
-            PrintDoorsStatus();
+            // Console.WriteLine("Strategy used");
+            //PrintDoorsStatus();
         }
 
         private void CreateDoors()
@@ -62,13 +62,13 @@ namespace MontyHall
             _doors[doorIndex].IsPicked = true;
         }
 
-        private int GetRandomDoorByCondition(bool isShow)
+        private int GetRandomDoorByCondition(bool ifShowingDoor)
         {
-            List<int> selectedIndex = new List<int>();
+            var selectedIndex = new List<int>();
             for (var i = 0; i < _totalDoors; i++)
             {
                 var door = _doors[i];
-                switch (isShow)
+                switch (ifShowingDoor)
                 {
                     case true:
                         if (GetShowDoorCondition(door))

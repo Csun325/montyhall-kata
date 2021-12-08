@@ -19,8 +19,8 @@ namespace MontyHall
             _runCount = runTimes;
             for (var i = 0; i < runTimes; i++)
             {
-                Console.WriteLine("Round " + i);
-                Console.WriteLine("Performing staying strategy_______");
+                //Console.WriteLine("Round " + i);
+                //Console.WriteLine("Performing staying strategy_______");
                 gameStay.RunGame();
                 if (gameStay.GetResults())
                 {
@@ -28,7 +28,7 @@ namespace MontyHall
                 }
                 gameStay.ClearCurrentGame();
                 
-                Console.WriteLine("Performing switching strategy_______");
+               // Console.WriteLine("Performing switching strategy_______");
                 gameSwitch.RunGame();
                 if (gameSwitch.GetResults())
                 {
@@ -38,6 +38,7 @@ namespace MontyHall
                 
             }
         }
+        
 
         public void CompareResults()
         {
