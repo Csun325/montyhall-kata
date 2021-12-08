@@ -5,40 +5,35 @@ namespace MontyHall
 {
     public class Simulator : ISimulator
     {
+        private double _stayCount = 0;
+        private double _switchCount = 0;
+        private double _runCount;
+        private string printResults;
 
-        public double _stayCount = 0;
-        public double _switchCount = 0;
-        public double _runCount;
-        public string printResults;
-
-        public double switchPercent;
-        public double stayPercent;
+        private double switchPercent;
+        private double stayPercent;
         
         public void RunSimulator(int runTimes, IGame gameStay, IGame gameSwitch)
         {
             _runCount = runTimes;
             for (var i = 0; i < runTimes; i++)
             {
-                //Console.WriteLine("Round " + i);
-                //Console.WriteLine("Performing staying strategy_______");
-                gameStay.RunGame();
-                if (gameStay.GetResults())
-                {
-                    _stayCount++;
-                }
-                gameStay.ClearCurrentGame();
-                
-               // Console.WriteLine("Performing switching strategy_______");
-                gameSwitch.RunGame();
-                if (gameSwitch.GetResults())
-                {
-                    _switchCount++;
-                }
-                gameSwitch.ClearCurrentGame();
-                
+                _stayCount += GetGameRunning(gameStay);
+                _switchCount += GetGameRunning(gameSwitch);
             }
         }
-        
+
+        private static int GetGameRunning(IGame game)
+        {
+            var count = 0;
+            game.RunGame();
+            if (game.GetResults())
+            {
+                count++;
+            }
+            game.ClearCurrentGame();
+            return count;
+        }
 
         public void CompareResults()
         {
